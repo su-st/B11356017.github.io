@@ -13,7 +13,7 @@
             padding: 0;
         }
         .container {
-            width: 50%;
+            width: 80%;
             margin: 50px auto;
             background: white;
             padding: 20px;
@@ -23,7 +23,7 @@
         img {
             border-radius: 50%;
             width: 150px;
-            height: 150px;
+            height: auto;
         }
         .info {
             margin-top: 20px;
@@ -31,17 +31,80 @@
             background: #eee;
             border-radius: 5px;
         }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .resume {
+            display: flex;
+            width: 60%;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 35%;
+            background-color: #faebd7;
+            padding: 20px;
+            text-align: center;
+        }
+        .sidebar img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .sidebar h2 {
+            color: #d89250;
+        }
+        .content {
+            width: 65%;
+            padding: 20px;
+        }
+        h2 {
+            border-bottom: 2px solid #d89250;
+            padding-bottom: 5px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-        <div class="container">
-            <h2>B11356017蘇韻蓉的自我介紹</h2>
-            <img src="C:\Users\almas\OneDrive\圖片\桌面\015150.jpg" alt="個人照片">
-            <div class="info">
-                <p> 我叫[蘇韻蓉]，我就讀於[屏東科技大學-資訊管理學系]。</p>
-                <p>我出生於[台灣]，目前居住在[高雄市]。</p>
-                <p>我的興趣是[追星、睡覺]，我喜歡[彈吉他]。</p>
-                <p>我的座右銘是[人生要把握當下，不留遺憾]，我的人生目標是[勇於去探索全世界]。</p>
+        <div class="resume">
+            <div class="sidebar">
+                <img src="C:\Users\almas\OneDrive\圖片\桌面\015150.jpg" alt="個人照片">
+                <h2>蘇韻蓉</h2>
+                <h3>聯繫方式</h3>
+                <p>Mail: almasu941127<br>@gmail.com</p>
+                <h3>社交媒體</h3>
+                <p>Facebook: 蘇韻蓉</p>
+                <p>Instagram: @uz._1127</p>
+            </div>
+            <div class="content">
+                <div class="section">
+                    <h2>自我介紹</h2>
+                    <p>這裡是簡單的個人介紹。</p>
+                </div>
+                <div class="section">
+                    <h2>出生地</h2>
+                    <p>出生於"台灣"，目前居住在"高雄市"。</p>
+                </div>
+                <div class="section">
+                    <h2>教育</h2>
+                    <p>目前就讀於"屏東科技大學-資訊管理學系"</p>
+                </div>
+                <div class="section">
+                    <h2>興趣</h2>
+                    <p>追星、睡覺、彈吉他。</p>
+                </div>
+                <div class="section">
+                    <h2>座右銘</h2>
+                    <p>"人生要把握當下，不留遺憾"</p>
+                </div>
             </div>
         </div>
 </body>
