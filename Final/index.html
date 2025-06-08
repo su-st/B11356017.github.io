@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>段藝璇 - 安利網站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 導覽列 */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #764ba2;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* 主要內容區域 */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .page {
+            display: none;
+            padding: 3rem 0;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 格線系統 */
+        .grid {
+            display: grid;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* 卡片設計 */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 主要標題 */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.9) 0%, 
+                rgba(118, 75, 162, 0.9) 100%);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .hero.with-bg-image {
+            background: linear-gradient(135deg, 
+                rgba(142, 159, 235, 0.8) 0%, 
+                rgba(191, 153, 230, 0.8) 100%),
+                var(--bg-image-url) no-repeat center center;
+            background-size: cover;
+            background-blend-mode: overlay;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+            animation: floatingBg 20s ease-in-out infinite;
+        }
+
+        @keyframes floatingBg {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(10px, -10px) rotate(1deg); }
+            66% { transform: translate(-5px, 5px) rotate(-1deg); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 40px rgba(102, 126, 234, 0.2);
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 個人照片 */
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                0 5px 15px rgba(102, 126, 234, 0.4),
+                inset 0 0 0 3px rgba(255, 255, 255, 0.3);
+            border: 5px solid transparent;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.8), 
+                rgba(102, 126, 234, 0.3), 
+                rgba(118, 75, 162, 0.3)
+            );
+            background-clip: padding-box;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-photo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(102, 126, 234, 0.4),
+                transparent,
+                rgba(118, 75, 162, 0.4),
+                transparent,
+                rgba(255, 107, 157, 0.3),
+                transparent
+            );
+            animation: rotate 6s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.08);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 10px 25px rgba(102, 126, 234, 0.5),
+                inset 0 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+
+        .profile-photo:hover::before {
+            animation-duration: 2s;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-placeholder {
+            font-size: 3rem;
+            color: white;
+            background: linear-gradient(135deg, 
+                #667eea, 
+                #764ba2,
+                #ff6b9d
+            );
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease-in-out infinite;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* 社交媒體連結 */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 作品展示 */
+        .work-item {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .work-item:hover {
+            transform: scale(1.05);
+        }
+
+        .work-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .work-content {
+            padding: 1.5rem;
+        }
+
+        .work-title {
+            color: #667eea;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .work-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* 舞台表演 - 整合後的樣式 */
+        .stage-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stage-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), var(--bg-image-url);
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .stage-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+            z-index: 1;
+        }
+
+        .stage-hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .stage-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-section {
+            background: white;
+            padding: 60px 40px;
+        }
+
+        .stage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stage-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid #f8f9ff;
+        }
+
+        .stage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .stage-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .stage-image span {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 2;
+            position: relative;
+        }
+
+        .stage-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stage-image:hover .stage-overlay {
+            opacity: 1;
+        }
+
+        .stage-content {
+            padding: 25px;
+            background: white;
+        }
+
+        .stage-date {
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stage-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .stage-venue {
+            color: #666;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .stage-venue::before {
+            content: "📍";
+            margin-right: 8px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .stage-preview-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        }
+
+        .stage-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 移除原本的 span 樣式 */
+        .stage-image span {
+            display: none;
+        }
+
+        .work-preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .work-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px; /* 確保高度固定 */
+            background: linear-gradient(135deg, #667eea, #764ba2); /* 圖片載入前的背景 */
+        }
+
+        .work-item:hover .work-preview-image {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1, .stage-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p, .stage-hero p {
+                font-size: 1rem;
+            }
+
+            .profile-photo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .profile-placeholder {
+                font-size: 2.5rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .grid-2, .grid-3, .grid-4, .stage-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .stage-hero {
+                padding: 60px 20px;
+            }
+            
+            .content-section {
+                padding: 40px 20px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero h1, .stage-hero h1 {
+                font-size: 2rem;
+            }
+
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-placeholder {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* 添加動畫效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stage-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .stage-card:nth-child(1) { animation-delay: 0.1s; }
+        .stage-card:nth-child(2) { animation-delay: 0.2s; }
+        .stage-card:nth-child(3) { animation-delay: 0.3s; }
+        .stage-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- 導覽列 -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">段藝璇</a>
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-page="intro">個人介紹</li>
+                    <li class="nav-item" data-page="works">原創作品</li>
+                    <li class="nav-item" data-page="stages">精選舞台</li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容 -->
+    <main>
+        <!-- 個人介紹頁面 -->
+        <div class="page active" id="intro">
+            <div class="container">
+                <div class="hero with-bg-image" style="--bg-image-url: url('C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75587597_0.jpg')">
+                    <div class="profile-photo">
+                        <!-- 這裡會嘗試載入圖片，如果載入失敗會顯示預設內容 -->
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75587591.jpg"
+                             alt="段藝璇頭像" 
+                             class="profile-image"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="profile-placeholder" style="display: none;">
+                            段
+                        </div>
+                    </div>
+                    <h1>段藝璇</h1>
+                    <p>SNH48</p>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="card">
+                        <h3>關於崽崽</h3>
+                        <p>姓名：段藝璇
+                        <br>外文名：Eshine<br>
+                        暱稱：DDD（段短短、段釣釣、段掉掉、段噸噸）／璇璇／選璇／小段／小滴／滴崽／段王爺／段璇／段逸軒（男裝名）／粉寶豆（粉絲寶貝愛豆）<br>
+                        生日：1995年8月19日<br>
+                        星座：獅子座<br>
+                        家鄉：湖南省郴州市安仁縣<br>
+                        應援色：極橙<br>
+                        粉絲名：璇推／段家軍／璇的人／璇的媽／璇的妻／璇的兒／璇的狗<br>
+                        粉絲暱稱：豆寶粉／鋼子／手機精<br>
+                        寵物名：布丁 🐈</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>璇璇的話</h3>
+                        <p>
+                        ——"我喜歡贏，但是我更喜歡大家。我知道我的大家也喜歡贏，所以未來我將要帶著大家一起贏、一路贏！好不好？"<br><br>
+
+                        ——我一直以來所做的和我想做的，就是想要證明給大家看，證明給所有人看，"努力是沒有用的"這句話是錯誤的！<br><br>
+
+                        ——少年將永遠追光<br>
+
+                        陽光 月光 星光 燈光 和你的目光<br><br>
+                        </p>
+
+                        <hr>
+
+                        <p><br>
+                        粉絲們在你心裡是什麼樣的卡通人物形象呢？<br>
+
+                        ——"是小心翼翼守護著我的憨厚大熊 / 是陪我披荊斬棘的盔甲戰士 / 是給我陽光溫暖的糯米團子微笑 / 是因為我會受傷的剪刀手愛德華"
+                        </p>
+
+                    </div>
+
+                    <div class="card">
+                        <h3>成長歷程</h3>
+                        <p>
+                        中國偶像團體SNH48的成員，現任Team SII隊長。2015年7月25日，她作為SNH48五期生正式亮相，<br>
+                        並於同年12月4日通過《劇場女神》公演出道，加入Team XII。<br>
+                        2016年4月20日，段藝璇移籍至新成立的北京姐妹團BEJ48，成為Team B成員，<br>
+                        並於4月29日以BEJ48成員身份再次在《劇場女神》公演中亮相。<br>
+                        9月15日，她被任命為Team B隊長，展現出領導才能。
+                        </p>
+
+                        <p>
+                        在2017年7月29日的SNH48 Group第四屆總決選中，段藝璇以46,825.4票獲得第13名，<br>
+                        成為首位進入總決選選拔組的分團成員，並榮獲BEJ48第一名的稱號。<br>
+                        此後，她在2018年7月的第五屆總決選中以53,190.64票排名第15名，繼續保持高人氣。<br>
+                        2019年7月27日，她在第六屆總決選中獲得1,157,528票，排名第3，<br>
+                        成為首位進入總決選TOP3的分團成員。
+                        </p>
+
+                        <p>
+                        2020年9月，由於BEJ48短期內無法正常開展團體活動，段藝璇回歸SNH48，並加入Team SII。<br>
+                        11月14日，她在Team SII七週年紀念公演中被任命為隊長，繼續在團隊中發揮重要作用。<br>
+                        2021年8月7日，在第八屆偶像年度人氣總決選中，她以84.6206萬票排名第五，展現出穩定的人氣。
+                        </p>
+
+                        <p>
+                        除了在團體中的表現，段藝璇還涉足影視領域。<br>
+                        2018年1月12日，她參演網絡電影《大唐嘻遊記》，飾演秦小小，<br>
+                        並於同年3月入圍第二屆網影盛典「年度十佳網絡電影女演員」。<br>
+                        她還參與主持芒果TV節目《歐唱帶GO團》，拓展了個人發展領域。
+                        </p>
+
+                        <p>
+                        2025年3月5日，段藝璇舉辦了「即刻開麥」年度MVP全場定製公演，<br>
+                        展示了她在舞台上的魅力和實力。<br>
+                        從出道至今，段藝璇憑藉出色的舞台表現、領導能力和多方面的發展，<br>
+                        成為SNH48中備受矚目的成員之一。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://weibo.com/u/5681004199" class="social-link" target="_blank">微博</a>
+                    <a href="https://v.douyin.com/5lsUXvt2XdI/" class="social-link" target="_blank">抖音</a>
+                    <a href="https://b23.tv/bU6sXTF" class="social-link" target="_blank">B站</a>
+                    <a href="https://www.instagram.com/ddd_duanyixuan?igsh=cTIyNGI1bTBrMHE2" class="social-link" target="_blank">Instagram</a>
+                    <a href="https://www.xiaohongshu.com/user/profile/5e42d6620000000001002705?xsec_token=YB73wjC22pUbSXNjLF0t-4msLIOsy7qwUCBQ1Cth7zXqI=&xsec_source=app_share&xhsshare=CopyLink&appuid=60d9506d000000000101d154&apptime=1749305087&share_id=274185a969864380bc72a43eb8f771f3" class="social-link" target="_blank">小紅書</a>
+                    <a href="http://163cn.tv/FPNPjMB" class="social-link" target="_blank">网易云电台</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 原創作品頁面 -->
+        <div class="page" id="works">
+            <div class="container">
+                <div class="hero with-bg-image" style="--bg-image-url: url('https://source.unsplash.com/random/1600x900/?music')">
+                    <h1>原創作品</h1>
+                    <p>音樂作品集</p>
+                </div>
+
+                <div class="grid grid-3">
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620368.jpg" alt="《世界上最了不起的事情》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《世界上最了不起的事情》</h3>
+                        <p class="work-description">有你，有我，我們一起，就是這個世界上最了不起的事情。</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620372.jpg" alt="《報告！今天還是喜歡你》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《報告！今天還是喜歡你》</h3>
+                        <p class="work-description">我們一天天一點點，把它刻入我們的記憶裡。</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620367.jpg" alt="《住在海边的猫》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《住在海边的猫》</h3>
+                        <p class="work-description">第一萬次我還是要奔向你。</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620371.jpg" alt="《劫》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《劫》</h3>
+                        <p class="work-description">不考慮太多世俗偏見，不要框架束縛，做任何想做的事情。</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620366.jpg" alt="《Sundown》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《Sundown》</h3>
+                        <p class="work-description">你也在痛著吧，
+                        卻還叫我別害怕，
+                        我擁有一個盛夏，
+                        我擁有你一口袋的星光。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620375.jpg" alt="《不散》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《不散》</h3>
+                        <p class="work-description">「我們不散」</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620369.jpg" alt="《自由狂想曲》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《自由狂想曲》</h3>
+                        <p class="work-description">總得要如願以償。</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620370.jpg" alt="《謊》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《謊》</h3>
+                        <p class="work-description">「我像一頭鯨魚
+                        在海裡遊來遊去
+                        聽不到回應
+                        忘了來時目的」</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620373.jpg" alt="《浪漫的小事情》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《浪漫的小事情》</h3>
+                        <p class="work-description">枕在我的手邊 一起畫出漫天繁星點點</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620374.jpg" alt="《仲夏夜》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《仲夏夜》</h3>
+                        <p class="work-description">天亮之前告訴我你的心願</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620376.jpg" alt="《拾壹》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《拾壹》</h3>
+                        <p class="work-description">有什麼東西是丟失過，現在又撿回來的嗎？<br>
+                        把自己擺在自己的第一位</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620382.jpg" alt="《留声机》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《留声机》</h3>
+                        <p class="work-description">故事的最終我碎在你滾燙的餘暉裡</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620383.jpg" alt="《意外的故事》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《意外的故事》</h3>
+                        <p class="work-description">小十三，獨屬於段藝璇的浪漫</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620380_0.jpg" alt="《逃出宇宙盡頭》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《逃出宇宙盡頭》</h3>
+                        <p class="work-description">如果宇宙盡頭是循環的開端，還要出逃嗎？<br>
+                        咱去循環之外吧，這才是逃的意義啊</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620381_0.jpg" alt="《What About Us》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《What About Us》</h3>
+                        <p class="work-description">「故事的最開始是，
+                        我記得你說這裡有夢，我便飛奔了而來尋夢」<br>
+
+                        世界很好，世界很糟<br>
+                        What about us❤️</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__1450017_0.jpg" alt="《飛》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《飛》</h3>
+                        <p class="work-description">如果你長出翅膀，會是什麼顏色的？<br>
+                        陽光的顏色</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__1450018_0.jpg" alt="《Instinct》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《Instinct》</h3>
+                        <p class="work-description">感受你流露出的愛意</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__1450019_0.jpg" alt="《FOR.u》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《FOR.u》</h3>
+                        <p class="work-description">見證潮起潮落 各赴山高海闊 很榮幸我曾做過你的臂膀</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__1450020_0.jpg" alt="《紀念》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《紀念》</h3>
+                        <p class="work-description">「把握當下的每個瞬間」</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__1450021_0.jpg" alt="《初冬日記》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《初冬日記》</h3>
+                        <p class="work-description">baby跟隨心的指引 向你靠近</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__1450022_0.jpg" alt="《鱼》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《鱼》</h3>
+                        <p class="work-description">"被淹沒在水裡 掙扎吐著氣"<br>
+                        "你是供我生存的空氣
+                        也是搶走我氧氣的共生體"</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__1450023_0.jpg" alt="《聖誕夜》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《聖誕夜》</h3>
+                        <p class="work-description">"借個樓梯 摘下聖誕樹 最頂端那顆星球 在房頂挖一個煙囪 送給你的小貓和小狗
+                        送你會飛的屋頂 還有一個夢"</p>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-image">
+                        <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620378.jpg" alt="《青墻怨》單曲封面" class="work-preview-image">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">《青墻怨》</h3>
+                        <p class="work-description">「輪迴百轉只求陪你續前緣」</p>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 精選舞台頁面 - 整合後的版本 -->
+        <div class="page" id="stages">
+            <div class="container">
+                <div class="stage-container">
+                    <!-- Hero Section -->
+                    <div class="stage-hero" style="--bg-image-url: url('https://source.unsplash.com/1600x400/?concert,stage')">
+                        <h1>精選舞台</h1>
+                        <p>難忘的演出時刻</p>
+                    </div>
+
+                    <!-- Content Section with White Background -->
+                    <div class="content-section">
+                        <h2 class="section-title">生日公演回顧</h2>
+                        
+                        
+                        <div class="stage-grid">
+                            <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV1Js411k79Y?vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620362_0.jpg" alt="Team B《劇場女神》段藝璇生日主題公演" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2016年08月19日</div>
+                                <div class="stage-title">Team B《劇場女神》段藝璇生日主題公演</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV1HW411t7LL?vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620363_0.jpg" alt="Team B《十八個閃耀瞬間》千秋樂、段藝璇生日公演" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2017年12月24日</div>
+                                <div class="stage-title">Team B《十八個閃耀瞬間》千秋樂、段藝璇生日公演</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV13t41167wN?p=7&vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620364_0.jpg" alt="Team B《B A FIGHTER》段藝璇生日公演" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2018年12月30日</div>
+                                <div class="stage-title">Team B《B A FIGHTER》段藝璇生日公演</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV12Z4y1G787?vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620360_0.jpg" alt="世界上最了不起的事情生日FanMeeting" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2020年11月29日</div>
+                                <div class="stage-title">"世界上最了不起的事情"生日FanMeeting生日會</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV1oM4y1K7jz?p=5&vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620356_0.jpg" alt="Team SII《819號公館致函》段藝璇生日公演" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2021年07月18日</div>
+                                <div class="stage-title">Team SII《819號公館致函》段藝璇生日公演暨發言時刻｜中報發布</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV1is4y1d7LA?vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620365_0.jpg" alt="《What about us》舞台唱享會" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2023年4月22日</div>
+                                <div class="stage-title">《What about us》舞台唱享會</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV1Eu411j7wQ?vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620361_0.jpg" alt="《莫比烏斯環的告別式 · 入夢口》段藝璇生日公演" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2023年7月7日</div>
+                                <div class="stage-title">《莫比烏斯環的告別式 · 入夢口》段藝璇生日公演</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV1fw411V78i?p=5&vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620359_0.jpg" alt="Team SII《Merry ReDMas》段藝璇生日公演" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2023年12月24日</div>
+                                <div class="stage-title">Team SII《Merry ReDMas》段藝璇生日公演</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV14S421R7Va?p=5&vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620357_0.jpg" alt="Team SII 段藝璇《我穿越了》生日公演" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2024年7月13日</div>
+                                <div class="stage-title">Team SII 段藝璇《我穿越了》生日公演</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-image" onclick="window.open('https://www.bilibili.com/video/BV1kE4GeYEtt?vd_source=2750014ced4a4795fbb8ed4859e8e29a', '_blank')">
+                                <img src="C:\Users\almas\OneDrive\圖片\桌面\新增資料夾\S__75620358_0.jpg" alt="Team SII 段藝璇《第819號當舖》生日公演" class="stage-preview-image">
+                                <div class="stage-overlay">點擊觀看影片</div>
+                            </div>
+                            <div class="stage-content">
+                                <div class="stage-date">2024年10月2日</div>
+                                <div class="stage-title">Team SII 段藝璇《第819號當舖》生日公演</div>
+                            </div>
+                        </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 頁面切換功能
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        // 導覽列點擊事件
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const targetPage = item.getAttribute('data-page');
+                
+                // 移除所有active類別
+                navItems.forEach(nav => nav.classList.remove('active'));
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // 添加active類別到目標元素
+                item.classList.add('active');
+                document.getElementById(targetPage).classList.add('active');
+                
+                // 在手機版關閉選單
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // 漢堡選單功能
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // 點擊外部關閉手機選單
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // 滾動效果
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // 卡片動畫效果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.6s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // 觀察所有卡片
+        document.querySelectorAll('.card, .work-item, .stage-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
